@@ -11,36 +11,54 @@ This module supports operations with tuples with up to 16 elements.
 Generic accessors and setters aren't included – if you want that, consider
 using <http://hackage.haskell.org/package/microlens microlens>, which is a
 dependency-free alternative to <http://hackage.haskell.org/package/lens lens>
-providing generic lenses for tuples.
+providing generic lenses for tuples. This package only gives you 'uncons' and
+'unsnoc', which can be used to get the 1st and last element respectively.
 -}
 module Data.Tuple.Generic
 (
   cons,
+  uncons,
   snoc,
+  unsnoc,
 )
 where
 
-class TupleCons a b x | a b -> x, a x -> b, b x -> a where
+class TupleCons a b x | b -> x, b -> a, a x -> b where
+
   -- | Prepend a value to a tuple.
   --
   -- >>> cons 0 (1,2,3)
   -- (0,1,2,3)
   cons :: x -> a -> b
 
-class TupleSnoc a b x | a b -> x, a x -> b, b x -> a where
+  -- | Split off the 1st element of a tuple.
+  --
+  -- >>> uncons (0,1,2,3)
+  -- (0,(1,2,3))
+  uncons :: b -> (x, a)
+
+class TupleSnoc a b x | b -> x, b -> a, a x -> b where
   -- | Append a value to a tuple.
   --
   -- >>> snoc (1,2,3) 4
   -- (1,2,3,4)
   snoc :: a -> x -> b
 
+  -- | Split off the last element of a tuple.
+  --
+  -- >>> unsnoc (1,2,3,4)
+  -- ((1,2,3),4)
+  unsnoc :: b -> (a, x)
+
 #define X ,
 
 #define CONS(S) instance TupleCons (S) (x, S) x where \
-  cons x ~(S) = (x, S); {-# INLINE cons #-}
+  cons x ~(S) = (x, S); {-# INLINE cons #-};          \
+  uncons ~(x, S) = (x, (S)); {-# INLINE uncons #-};
 
 #define SNOC(S) instance TupleSnoc (S) (S, x) x where \
-  snoc ~(S) x = (S, x); {-# INLINE snoc #-}
+  snoc ~(S) x = (S, x); {-# INLINE snoc #-};          \
+  unsnoc ~(S, x) = ((S), x); {-# INLINE unsnoc #-};
 
 CONS(a1 X a2)
 SNOC(a1 X a2)
