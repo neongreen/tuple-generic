@@ -5,7 +5,14 @@ FunctionalDependencies,
 FlexibleInstances
   #-}
 
--- | This module supports operations with tuples with up to 16 elements.
+{- |
+This module supports operations with tuples with up to 16 elements.
+
+Generic accessors and setters aren't included – if you want that, consider
+using <http://hackage.haskell.org/package/microlens microlens>, which is a
+dependency-free alternative to <http://hackage.haskell.org/package/lens lens>
+providing generic lenses for tuples.
+-}
 module Data.Tuple.Generic
 (
   cons,
@@ -14,9 +21,17 @@ module Data.Tuple.Generic
 where
 
 class TupleCons a b x | a b -> x, a x -> b, b x -> a where
+  -- | Prepend a value to a tuple.
+  --
+  -- >>> cons 0 (1,2,3)
+  -- (0,1,2,3)
   cons :: x -> a -> b
 
 class TupleSnoc a b x | a b -> x, a x -> b, b x -> a where
+  -- | Append a value to a tuple.
+  --
+  -- >>> snoc (1,2,3) 4
+  -- (1,2,3,4)
   snoc :: a -> x -> b
 
 #define X ,
