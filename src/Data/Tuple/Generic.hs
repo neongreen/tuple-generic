@@ -9,11 +9,7 @@ FlexibleInstances
 {- |
 This module supports operations with tuples with up to 16 elements.
 
-Generic accessors and setters aren't included – if you want that, consider
-using <http://hackage.haskell.org/package/microlens microlens>, which is a
-dependency-free alternative to <http://hackage.haskell.org/package/lens lens>
-providing generic lenses for tuples. This package only gives you 'uncons' and
-'unsnoc', which can be used to get the 1st and last element respectively.
+Generic accessors and setters aren't included, because I'm lazy. If you want them, either file an issue or consider using <http://hackage.haskell.org/package/microlens microlens>, which is a dependency-free alternative to <http://hackage.haskell.org/package/lens lens> providing generic lenses for tuples.
 -}
 module Data.Tuple.Generic
 (
