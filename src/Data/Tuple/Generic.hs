@@ -5,6 +5,7 @@ FunctionalDependencies,
 FlexibleInstances
   #-}
 
+
 {- |
 This module supports operations with tuples with up to 16 elements.
 
@@ -16,15 +17,16 @@ providing generic lenses for tuples. This package only gives you 'uncons' and
 -}
 module Data.Tuple.Generic
 (
-  cons,
-  uncons,
-  snoc,
-  unsnoc,
+  -- * Cons and uncons
+  TupleCons(..),
+
+  -- * Snoc and unsnoc
+  TupleSnoc(..),
 )
 where
 
-class TupleCons a b x | b -> x, b -> a, a x -> b where
 
+class TupleCons a b x | b -> x, b -> a, a x -> b where
   -- | Prepend a value to a tuple.
   --
   -- >>> cons 0 (1,2,3)
