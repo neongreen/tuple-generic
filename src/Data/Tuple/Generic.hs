@@ -1,9 +1,7 @@
-{-# LANGUAGE
-CPP,
-MultiParamTypeClasses,
-FunctionalDependencies,
-FlexibleInstances
-  #-}
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE FlexibleInstances #-}
 
 
 {- |
